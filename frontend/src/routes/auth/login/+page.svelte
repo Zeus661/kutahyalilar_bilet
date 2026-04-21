@@ -1,6 +1,6 @@
 <script lang="ts">
 	let { form } = $props();
-	let email = $state(form?.email ?? '');
+	let email = $derived(form?.email ?? '');
 	let password = $state('');
 	let error = $derived(form?.error ?? '');
 </script>

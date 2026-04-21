@@ -91,30 +91,30 @@
 <Modal title="Yeni Sefer Ekle" open={showCreateModal} onclose={() => (showCreateModal = false)}>
 	<form method="POST" action="?/create" class="space-y-4">
 		<div>
-			<label class="mb-1 block text-sm font-medium">Route ID</label>
-			<select name="route_id" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red">
+			<label for="route_id" class="mb-1 block text-sm font-medium">Route ID</label>
+			<select id="route_id" name="route_id" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red">
 				{#each data.routes as r (r.id)}
 					<option value={r.id}>{r.origin} → {r.destination}</option>
 				{/each}
 			</select>
 		</div>
 		<div>
-			<label class="mb-1 block text-sm font-medium">Bus ID</label>
-			<input name="bus_id" type="text" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
+			<label for="bus_id" class="mb-1 block text-sm font-medium">Bus ID</label>
+			<input id="bus_id" name="bus_id" type="text" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
 		</div>
 		<div class="grid grid-cols-2 gap-3">
 			<div>
-				<label class="mb-1 block text-sm font-medium">Kalkış</label>
-				<input name="departure_time" type="datetime-local" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
+				<label for="departure_time" class="mb-1 block text-sm font-medium">Kalkış</label>
+				<input id="departure_time" name="departure_time" type="datetime-local" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
 			</div>
 			<div>
-				<label class="mb-1 block text-sm font-medium">Varış</label>
-				<input name="arrival_time" type="datetime-local" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
+				<label for="arrival_time" class="mb-1 block text-sm font-medium">Varış</label>
+				<input id="arrival_time" name="arrival_time" type="datetime-local" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
 			</div>
 		</div>
 		<div>
-			<label class="mb-1 block text-sm font-medium">Fiyat</label>
-			<input name="price" type="number" step="0.01" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
+			<label for="price" class="mb-1 block text-sm font-medium">Fiyat</label>
+			<input id="price" name="price" type="number" step="0.01" required class="w-full rounded-lg border-gray-300 focus:border-kutahya-red focus:ring-kutahya-red" />
 		</div>
 		<button type="submit" class="w-full rounded-lg bg-kutahya-accent py-2 font-semibold text-white hover:bg-orange-600">Oluştur</button>
 	</form>

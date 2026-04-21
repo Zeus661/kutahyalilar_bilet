@@ -1,6 +1,7 @@
 <script lang="ts">
 	let { data } = $props();
-	const { stats, recentBookings } = data;
+	let stats = $derived(data.stats);
+	let recentBookings = $derived(data.recentBookings);
 </script>
 
 <svelte:head>

@@ -7,10 +7,10 @@
 	let cartItem = $derived($cart);
 	let submitting = $state(false);
 
-	let passenger_name = $state(form?.passenger_name ?? '');
-	let passenger_tc = $state(form?.passenger_tc ?? '');
-	let passenger_gender = $state(form?.passenger_gender ?? '');
-	let passenger_dob = $state(form?.passenger_dob ?? '');
+	let passenger_name = $derived(form?.passenger_name ?? '');
+	let passenger_tc = $derived(form?.passenger_tc ?? '');
+	let passenger_gender = $derived(form?.passenger_gender ?? '');
+	let passenger_dob = $derived(form?.passenger_dob ?? '');
 	let cardNumber = $state('');
 	let cardExpiry = $state('');
 	let cardCvv = $state('');
@@ -44,7 +44,7 @@
 		<h1 class="mb-8 text-2xl font-bold text-kutahya-dark">Ödeme</h1>
 
 		{#if form?.error}
-			<ErrorBanner message={form.error} class="mb-6" />
+			<ErrorBanner message={form.error} />
 		{/if}
 
 		<div class="grid gap-8 lg:grid-cols-5">

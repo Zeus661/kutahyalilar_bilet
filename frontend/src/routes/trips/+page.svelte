@@ -5,9 +5,9 @@
 
 	let { data } = $props();
 
-	let origin = $state(data.origin);
-	let destination = $state(data.destination);
-	let date = $state(data.date);
+	let origin = $derived(data.origin);
+	let destination = $derived(data.destination);
+	let date = $derived(data.date);
 
 	function search(e: Event) {
 		e.preventDefault();
