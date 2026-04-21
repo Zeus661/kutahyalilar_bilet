@@ -200,3 +200,18 @@ services:
       - kutahya-net
     volumes:
       - ./shared:/shared
+
+  # ── Notification Service ───────────────────────────────────
+  notification-service:
+    build: ./services/notification-service
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8006:8006"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - kutahya-net
+    volumes:
+      - ./shared:/shared
