@@ -115,7 +115,27 @@ services:
     volumes:
       - ./shared:/shared
 
-  # ── User Service ───────────────────────────────────────────
+  # ── Trip Service ───────────────────────────────────────────
+  trip-service:
+    build: ./services/trip-service
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_NAME: ${TRIP_DB_NAME}
+      SERVICE_PORT: 8003
+    ports:
+      - "8003:8003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - kutahya-net
+    volumes:
+      - ./shared:/shared
   user-service:
     build: ./services/user-service
     restart: unless-stopped
