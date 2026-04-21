@@ -154,3 +154,23 @@ services:
       - kutahya-net
     volumes:
       - ./shared:/shared
+
+  # ── Payment Service ────────────────────────────────────────
+  payment-service:
+    build: ./services/payment-service
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_NAME: ${PAYMENT_DB_NAME}
+      SERVICE_PORT: 8005
+    ports:
+      - "8005:8005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - kutahya-net
+    volumes:
+      - ./shared:/shared
