@@ -174,3 +174,29 @@ services:
       - kutahya-net
     volumes:
       - ./shared:/shared
+
+  # ── Booking Service ────────────────────────────────────────
+  booking-service:
+    build: ./services/booking-service
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_NAME: ${BOOKING_DB_NAME}
+      SERVICE_PORT: 8004
+      TRIP_SERVICE_HOST: trip-service
+      PAYMENT_SERVICE_HOST: payment-service
+    ports:
+      - "8004:8004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      trip-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+    networks:
+      - kutahya-net
+    volumes:
+      - ./shared:/shared
