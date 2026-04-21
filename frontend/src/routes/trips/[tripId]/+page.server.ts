@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ params, locals, url }) => {
 	if (!locals.user) {
@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params, locals, url }) => {
 	const { tripId } = params;
 
 	try {
-		const res = await fetch(`${PUBLIC_API_BASE_URL}/api/v1/trips/${tripId}`, {
+		const res = await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/trips/${tripId}`, {
 			headers: { Authorization: `Bearer ${token}` }
 		});
 		if (!res.ok) throw redirect(303, '/trips');

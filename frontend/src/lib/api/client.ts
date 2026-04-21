@@ -1,4 +1,9 @@
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { PUBLIC_API_BASE_URL as STATIC_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
+
+function getBaseUrl(): string {
+	return env.PUBLIC_API_BASE_URL || STATIC_URL;
+}
 
 export async function apiFetch<T>(
 	path: string,
@@ -6,7 +11,7 @@ export async function apiFetch<T>(
 ): Promise<T> {
 	const { token, ...fetchOptions } = options;
 
-	const res = await fetch(`${PUBLIC_API_BASE_URL}${path}`, {
+	const res = await fetch(`${getBaseUrl()}${path}`, {
 		...fetchOptions,
 		headers: {
 			'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ url, locals }) => {
 	if (!locals.user) throw redirect(303, '/auth/login?redirect=' + encodeURIComponent(url.pathname));
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 	const params = new URLSearchParams({ origin, destination, date });
 
 	try {
-		const res = await fetch(`${PUBLIC_API_BASE_URL}/api/v1/trips/search?${params}`, {
+		const res = await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/trips/search?${params}`, {
 			headers: { Authorization: `Bearer ${token}` }
 		});
 		if (!res.ok) return { trips: [], origin, destination, date, error: 'Seferler yüklenemedi.' };

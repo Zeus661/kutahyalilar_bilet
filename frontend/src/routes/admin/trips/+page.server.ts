@@ -1,14 +1,14 @@
 import type { PageServerLoad, Actions } from './$types';
 import { redirect, fail } from '@sveltejs/kit';
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const token = locals.token!;
 	const headers = { Authorization: `Bearer ${token}` };
 
 	const [routesRes, tripsRes] = await Promise.all([
-		fetch(`${PUBLIC_API_BASE_URL}/api/v1/routes/`, { headers }).catch(() => null),
-		fetch(`${PUBLIC_API_BASE_URL}/api/v1/trips/search?origin=&destination=&date=2025-01-01`, { headers }).catch(() => null)
+		fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/routes/`, { headers }).catch(() => null),
+		fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/trips/search?origin=&destination=&date=2025-01-01`, { headers }).catch(() => null)
 	]);
 
 	const routes = routesRes?.ok ? await routesRes.json() : [];
@@ -28,7 +28,7 @@ export const actions: Actions = {
 		const price = form.get('price') as string;
 
 		try {
-			await fetch(`${PUBLIC_API_BASE_URL}/api/v1/trips/`, {
+			await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/trips/`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
 				body: JSON.stringify({ route_id, bus_id, departure_time, arrival_time, price })
@@ -44,7 +44,7 @@ export const actions: Actions = {
 		const tripId = form.get('tripId') as string;
 
 		try {
-			await fetch(`${PUBLIC_API_BASE_URL}/api/v1/trips/${tripId}`, {
+			await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/trips/${tripId}`, {
 				method: 'DELETE',
 				headers: { Authorization: `Bearer ${token}` }
 			});

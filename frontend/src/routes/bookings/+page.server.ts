@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	if (!locals.user) {
@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 
 	const token = locals.token!;
 	try {
-		const res = await fetch(`${PUBLIC_API_BASE_URL}/api/v1/bookings/my`, {
+		const res = await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/bookings/my`, {
 			headers: { Authorization: `Bearer ${token}` }
 		});
 		if (!res.ok) return { bookings: [], error: 'Biletler yüklenemedi.' };
@@ -27,7 +27,7 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const bookingId = form.get('bookingId') as string;
 
-		await fetch(`${PUBLIC_API_BASE_URL}/api/v1/bookings/${bookingId}`, {
+		await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/bookings/${bookingId}`, {
 			method: 'DELETE',
 			headers: { Authorization: `Bearer ${token}` }
 		});

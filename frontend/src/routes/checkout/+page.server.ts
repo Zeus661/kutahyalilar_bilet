@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { redirect, fail } from '@sveltejs/kit';
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	if (!locals.user) {
@@ -30,7 +30,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			const res = await fetch(`${PUBLIC_API_BASE_URL}/api/v1/bookings/`, {
+			const res = await fetch(`${env.PUBLIC_API_BASE_URL}/api/v1/bookings/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
