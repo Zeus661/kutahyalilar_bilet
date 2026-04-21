@@ -215,3 +215,18 @@ services:
       - kutahya-net
     volumes:
       - ./shared:/shared
+
+  # ── API Gateway ────────────────────────────────────────────
+  api-gateway:
+    build: ./services/api-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - auth-service
+      - user-service
+      - trip-service
+      - booking-service
+      - payment-service
+    networks:
+      - kutahya-net
