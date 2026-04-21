@@ -230,3 +230,16 @@ services:
       - payment-service
     networks:
       - kutahya-net
+
+  # ── Frontend ──────────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    environment:
+      PUBLIC_API_BASE_URL: http://api-gateway:80
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    networks:
+      - kutahya-net
